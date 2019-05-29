@@ -1,12 +1,18 @@
 
 import os
+import platform
 import maya.cmds as cmds
 
 import sgtk
 from sgtk.platform.qt import QtGui
 
 HookClass = sgtk.get_hook_baseclass()
-FFMPEG="/westworld/inhouse/tool/ffmpeg/ffmpeg"
+
+if platform.system() == "Linux":
+
+    FFMPEG="/westworld/inhouse/tool/ffmpeg/ffmpeg"
+else:
+    FFMPEG="//10.0.20.148/inhouse/window_inhouse/tool/ffmpeg/bin/ffmpeg"
 
 class PlayBlast(HookClass):
     """
@@ -41,12 +47,7 @@ class PlayBlast(HookClass):
             pass
 
         elif operation == "create_mov":
-            path = os.path.join(seq_path,seq_file_name+".%04d.jpg")
-            cmd = ' '.join( [FFMPEG,'-framerate 24', '-start_number 0001', '-y -i',path,
-                            '-b:v 100000000k -pix_fmt yuv420p -c:v libx264',
-                            os.path.join(mov_path,mov_file)])
-
-            os.system(cmd)
+            self._create_mov(seq_path,mov_path,mov_file)
 
         elif operation == "delete_seq":
             pass
@@ -54,6 +55,18 @@ class PlayBlast(HookClass):
             self._upload_version(mov_path,mov_file,note)
 
 
+    
+    def _create_mov(self,seq_path,mov_path,mov_file):
+        import sys
+        sys.path.append(self.disk_location)
+        import pyseq
+        seq_info = pyseq.get_sequences(seq_path)[0]
+        
+        cmd = ' '.join( [FFMPEG,'-framerate 24', '-start_number',str(seq_info.start()), '-y -i',
+                         seq_info.format("%D%h%p%t"),
+                         '-b:v 100000000k -pix_fmt yuv420p -c:v libx264',
+                         os.path.join(mov_path,mov_file)])
+        os.system(cmd)
 
 
     def _upload_version(self,mov_path,mov_file,note):
