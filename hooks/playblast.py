@@ -33,6 +33,12 @@ class PlayBlast(HookClass):
             ratio = cmds.getAttr("defaultResolution.deviceAspectRatio")
             cmds.setAttr("defaultRenderGlobals.imageFormat", 8)
 
+            if not int(width)%2 == 0:
+                width = int(width) + 1
+
+            if not int(height)%2 == 0:
+                height = int(height) + 1
+
             cmds.playblast(startTime=str(sframe), endTime=str(eframe), format="image",
                             percent = 100 , qlt = 100,
                             filename=str(os.path.join(seq_path,seq_file_name)), 
