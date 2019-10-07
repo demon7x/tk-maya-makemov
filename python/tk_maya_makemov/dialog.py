@@ -159,25 +159,25 @@ class AppDialog(QtGui.QWidget):
                                 note=note,
                                 sframe=sframe,eframe=eframe)
         
-        self._app.execute_hook("hook_playblast",
-                                operation="create_mov",
-                                mov_path = mov_path,
-                                mov_file=mov_file,
-                                seq_path=seq_path,
-                                seq_file_name=seq_file_name,
-                                width=width,height=height,
-                                note=note,
-                                sframe=sframe,eframe=eframe)
+        #self._app.execute_hook("hook_playblast",
+        #                        operation="create_mov",
+        #                        mov_path = mov_path,
+        #                        mov_file=mov_file,
+        #                        seq_path=seq_path,
+        #                        seq_file_name=seq_file_name,
+        #                        width=width,height=height,
+        #                        note=note,
+        #                        sframe=sframe,eframe=eframe)
 
-        self._app.execute_hook("hook_playblast",
-                                operation="upload_shotgun",
-                                mov_path = mov_path,
-                                mov_file=mov_file,
-                                seq_path=seq_path,
-                                seq_file_name=seq_file_name,
-                                width=width,height=height,
-                                note=note,
-                                sframe=sframe,eframe=eframe)
+        #self._app.execute_hook("hook_playblast",
+        #                        operation="upload_shotgun",
+        #                        mov_path = mov_path,
+        #                        mov_file=mov_file,
+        #                        seq_path=seq_path,
+        #                        seq_file_name=seq_file_name,
+        #                        width=width,height=height,
+        #                        note=note,
+        #                        sframe=sframe,eframe=eframe)
 
         self._spinner.hide()
 
@@ -245,8 +245,8 @@ class AppDialog(QtGui.QWidget):
             mov_temp = tk.templates['maya_asset_mov']
             fields = scene_file_temp.get_fields(scene_file)
 
-        fields["timestamp"] = datetime.now().strftime(TIMESTAMP_FMT)
-        fields['tail'] = self.ui.tail_lineedit.text()
+        #fields["timestamp"] = datetime.now().strftime(TIMESTAMP_FMT)
+        #fields['tail'] = self.ui.tail_lineedit.text()
         path = mov_temp.apply_fields(fields)
 
         return {'path':path}
