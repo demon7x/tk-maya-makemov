@@ -2,6 +2,7 @@
 
 # Form implementation generated from reading ui file 'dialog.ui'
 #
+# Created: Tue Oct 22 15:00:41 2019
 #      by: pyside-uic 0.2.15 running on PySide 1.2.4
 #
 # WARNING! All changes made in this file will be lost!
@@ -11,7 +12,8 @@ from tank.platform.qt import QtCore, QtGui
 class Ui_Dialog(object):
     def setupUi(self, Dialog):
         Dialog.setObjectName("Dialog")
-        Dialog.resize(515, 336)
+        Dialog.resize(515, 365)
+        Dialog.setMaximumSize(QtCore.QSize(16777215, 400))
         self.verticalLayout_10 = QtGui.QVBoxLayout(Dialog)
         self.verticalLayout_10.setObjectName("verticalLayout_10")
         self.horizontalLayout_5 = QtGui.QHBoxLayout()
@@ -82,30 +84,7 @@ class Ui_Dialog(object):
         self.verticalLayout_9.addWidget(self.end_frame)
         self.horizontalLayout_7.addLayout(self.verticalLayout_9)
         self.verticalLayout_6.addWidget(self.groupBox_3)
-        self.groupBox_2 = QtGui.QGroupBox(Dialog)
-        self.groupBox_2.setObjectName("groupBox_2")
-        self.verticalLayout_4 = QtGui.QVBoxLayout(self.groupBox_2)
-        self.verticalLayout_4.setContentsMargins(6, 6, 6, 6)
-        self.verticalLayout_4.setObjectName("verticalLayout_4")
-        self.mov_select = QtGui.QCheckBox(self.groupBox_2)
-        self.mov_select.setObjectName("mov_select")
-        self.verticalLayout_4.addWidget(self.mov_select)
-        self.seq_select = QtGui.QCheckBox(self.groupBox_2)
-        self.seq_select.setObjectName("seq_select")
-        self.verticalLayout_4.addWidget(self.seq_select)
-        self.verticalLayout_6.addWidget(self.groupBox_2)
         self.horizontalLayout_5.addLayout(self.verticalLayout_6)
-        self.verticalLayout_5 = QtGui.QVBoxLayout()
-        self.verticalLayout_5.setObjectName("verticalLayout_5")
-        self.label = QtGui.QLabel(Dialog)
-        self.label.setObjectName("label")
-        self.verticalLayout_5.addWidget(self.label)
-        self.note_box = QtGui.QTextEdit(Dialog)
-        self.note_box.setObjectName("note_box")
-        self.verticalLayout_5.addWidget(self.note_box)
-        spacerItem = QtGui.QSpacerItem(20, 40, QtGui.QSizePolicy.Minimum, QtGui.QSizePolicy.Expanding)
-        self.verticalLayout_5.addItem(spacerItem)
-        self.horizontalLayout_5.addLayout(self.verticalLayout_5)
         self.verticalLayout_10.addLayout(self.horizontalLayout_5)
         self.horizontalLayout_6 = QtGui.QHBoxLayout()
         self.horizontalLayout_6.setObjectName("horizontalLayout_6")
@@ -148,10 +127,6 @@ class Ui_Dialog(object):
         self.groupBox_3.setTitle(QtGui.QApplication.translate("Dialog", "Frame Range", None, QtGui.QApplication.UnicodeUTF8))
         self.label_5.setText(QtGui.QApplication.translate("Dialog", "Start", None, QtGui.QApplication.UnicodeUTF8))
         self.label_7.setText(QtGui.QApplication.translate("Dialog", "End", None, QtGui.QApplication.UnicodeUTF8))
-        self.groupBox_2.setTitle(QtGui.QApplication.translate("Dialog", "Export Type", None, QtGui.QApplication.UnicodeUTF8))
-        self.mov_select.setText(QtGui.QApplication.translate("Dialog", "Mov", None, QtGui.QApplication.UnicodeUTF8))
-        self.seq_select.setText(QtGui.QApplication.translate("Dialog", "Sequence", None, QtGui.QApplication.UnicodeUTF8))
-        self.label.setText(QtGui.QApplication.translate("Dialog", "Note", None, QtGui.QApplication.UnicodeUTF8))
         self.label_6.setText(QtGui.QApplication.translate("Dialog", "Tail name", None, QtGui.QApplication.UnicodeUTF8))
         self.label_4.setText(QtGui.QApplication.translate("Dialog", "Preview :", None, QtGui.QApplication.UnicodeUTF8))
         self.file_name_label.setText(QtGui.QApplication.translate("Dialog", "File name", None, QtGui.QApplication.UnicodeUTF8))

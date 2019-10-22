@@ -91,7 +91,6 @@ class AppDialog(QtGui.QWidget):
 
         self.ui.resolution.addItems(PRESET)
         self.ui.select_radio.click()
-        self.ui.mov_select.click()
         self._set_frame()
         
         self._spinner = spinner_widget.SpinnerWidget(self)
@@ -134,7 +133,7 @@ class AppDialog(QtGui.QWidget):
         seq_dir = mov_file.rsplit(".",1)[0]
         seq_path = os.path.join(mov_path,seq_dir)
         seq_file_name = mov_file.rsplit(".",1)[0]
-        note = self.ui.note_box.toPlainText()
+        note = ""
 
         if self.ui.select_radio.isChecked():
             width,height = self.ui.resolution.currentText().split("x")
@@ -159,15 +158,15 @@ class AppDialog(QtGui.QWidget):
                                 note=note,
                                 sframe=sframe,eframe=eframe)
         
-        #self._app.execute_hook("hook_playblast",
-        #                        operation="create_mov",
-        #                        mov_path = mov_path,
-        #                        mov_file=mov_file,
-        #                        seq_path=seq_path,
-        #                        seq_file_name=seq_file_name,
-        #                        width=width,height=height,
-        #                        note=note,
-        #                        sframe=sframe,eframe=eframe)
+        self._app.execute_hook("hook_playblast",
+                                operation="create_mov",
+                                mov_path = mov_path,
+                                mov_file=mov_file,
+                                seq_path=seq_path,
+                                seq_file_name=seq_file_name,
+                                width=width,height=height,
+                                note=note,
+                                sframe=sframe,eframe=eframe)
 
         #self._app.execute_hook("hook_playblast",
         #                        operation="upload_shotgun",
@@ -246,7 +245,8 @@ class AppDialog(QtGui.QWidget):
             fields = scene_file_temp.get_fields(scene_file)
 
         #fields["timestamp"] = datetime.now().strftime(TIMESTAMP_FMT)
-        #fields['tail'] = self.ui.tail_lineedit.text()
+        if self.ui.tail_lineedit.text():
+            fields['name'] = self.ui.tail_lineedit.text()
         path = mov_temp.apply_fields(fields)
 
         return {'path':path}

@@ -67,11 +67,24 @@ class PlayBlast(HookClass):
         sys.path.append(self.disk_location)
         import pyseq
         seq_info = pyseq.get_sequences(seq_path)[0]
-        
-        cmd = ' '.join( [FFMPEG,'-framerate 24', '-start_number',str(seq_info.start()), '-y -i',
-                         seq_info.format("%D%h%p%t"),
-                         '-b:v 100000000k -pix_fmt yuv420p -c:v libx264',
-                         os.path.join(mov_path,mov_file)])
+
+        command = [FFMPEG]
+        command.append("-i")
+        command.append( seq_info.format("%D%h%p%t"))
+        command.append("-vcodec")
+        command.append("libx264")
+        command.append("-r")
+        command.append("24")
+        command.append("-pix_fmt")
+        command.append("yuv420p")
+        #command.append("-preset")
+        #command.append("veryslow")
+        command.append("-crf")
+        command.append("18")
+        command.append("-vf")
+        command.append("pad='ceil(iw/2)*2:ceil(ih/2)*2'")
+        command.append(os.path.join(mov_path,mov_file))
+        cmd = " ".join(command)
         os.system(cmd)
 
 

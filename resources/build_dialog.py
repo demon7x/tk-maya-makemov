@@ -2,7 +2,7 @@ __author__ = 'acuthbert'
 
 from subprocess import check_output
 
-UI_PYTHON_PATH = "../python/app/ui"
+UI_PYTHON_PATH = "../python/tk_maya_makemov/ui"
 
 
 def build_ui(ui_name):
@@ -36,4 +36,4 @@ if __name__ == "__main__":
 
     build_ui('dialog')
     # build_ui('asset_window')
-    build_res('resources')
+    #build_res('resources')
