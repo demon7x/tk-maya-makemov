@@ -12,7 +12,7 @@ if platform.system() == "Linux":
 
     FFMPEG="/westworld/inhouse/tool/ffmpeg/ffmpeg"
 else:
-    FFMPEG="//10.0.20.148/inhouse/window_inhouse/tool/ffmpeg/bin/ffmpeg"
+    FFMPEG="\\\\10.0.40.42\\inhouse\\window_inhouse\\tool\\ffmpeg\\bin\\ffmpeg"
 
 class PlayBlast(HookClass):
     """
@@ -48,6 +48,11 @@ class PlayBlast(HookClass):
                             compression="jpg" ,os=1  )
 
             cmds.setAttr("defaultRenderGlobals.imageFormat", image_format)
+        
+
+        elif operation == "create_turntable":
+            turn_table = self._create_turntable()
+            return turn_table    
 
         elif operation == "append_slate":
             pass
@@ -59,6 +64,51 @@ class PlayBlast(HookClass):
             pass
         elif operation == "upload_shotgun":
             self._upload_version(mov_path,mov_file,note)
+
+    
+    def _create_turntable(self):
+        
+        sel = cmds.ls(sl=1)
+	bBox = cmds.exactWorldBoundingBox(sel)
+	v1 = [bBox[0], bBox[1], bBox[2]]
+	v2 = [bBox[3], bBox[4], bBox[5]]
+	v3 = [v2[0]- v1[0], v2[1]-v1[1], v2[2]-v1[2]]
+        height = (bBox[4] - bBox[1])/2.0
+	circle = cmds.circle(radius = bBox[3] * 0.8 * 9, sections = 50)
+	cmds.setAttr(circle[0] + '.rotateX', 90)
+        cmds.setAttr(circle[0] + '.translateY', height)
+        cmds.setAttr(circle[0] + '.visibility', 0)
+	cmds.reverseCurve(circle[0])
+
+	turnCamera = cmds.camera()
+	cameraShape = turnCamera[1]
+	cmds.camera(cameraShape, edit = True, focalLength = 50)
+	cmds.camera(cameraShape, edit = True, fStop = 5.6)
+	cmds.setAttr(cameraShape + '.aiApertureSize', ((50.0/5.6)/2)/10)
+
+	direction = 'Clockwise'
+	direction_value = 1
+	animationLength = 120
+	cmds.pathAnimation(turnCamera[0], circle[0], fractionMode = True, follow = True, followAxis = 'x', upAxis = 'y', 
+	worldUpType = 'vector', worldUpVector = [0, 1, 0], inverseUp = False, inverseFront = False, bank = False,
+	startTimeU = 1, endTimeU = animationLength)
+
+	con = cmds.listConnections(turnCamera)
+	motionpath = con[6]
+	cmds.keyframe(motionpath, edit = True, time=(0, 1), valueChange = 1)
+	cmds.keyframe(motionpath, edit = True, time=(animationLength - 1, animationLength), valueChange = 0)
+	cmds.keyTangent(motionpath, inTangentType = 'linear', outTangentType = 'linear', time = (0, animationLength + 1))
+
+        
+	cmds.select(circle)
+	cmds.select(turnCamera, add = True)
+	turntableContainer = cmds.group()
+
+        cmds.lookThru(turnCamera)
+
+        
+        return turntableContainer
+        
 
 
     
@@ -85,6 +135,7 @@ class PlayBlast(HookClass):
         command.append("pad='ceil(iw/2)*2:ceil(ih/2)*2'")
         command.append(os.path.join(mov_path,mov_file))
         cmd = " ".join(command)
+        print cmd
         os.system(cmd)
 
 

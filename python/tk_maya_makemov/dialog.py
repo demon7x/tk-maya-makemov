@@ -123,10 +123,55 @@ class AppDialog(QtGui.QWidget):
         
         self.ui.tail_lineedit.textChanged.connect(self._edit_tail)
         self.ui.playblast.clicked.connect(self._on_playblast)
+        self.ui.create_turntable.clicked.connect(self._create_turntable)
+    
+    def _create_turntable(self):
+
+        turn_group = self._app.execute_hook("hook_playblast",
+                                operation="create_turntable",
+                                mov_path = "",
+                                mov_file="",
+                                seq_path="",
+                                seq_file_name="",
+                                width="",height="",
+                                note="",
+                                sframe="",eframe="")
+
+        if self.ui.turn_default.isChecked():
+            print "Default"
+        if self.ui.turn_occlusion.isChecked():
+            print "occ"
+            cmds.setAttr("hardwareRenderingGlobals.ssaoEnable",True)
+            cmds.setAttr("hardwareRenderingGlobals.multiSampleEnable",True)
+
+        if self.ui.turn_wire.isChecked():
+            for mp in cmds.getPanel(type="modelPanel"):
+                if cmds.modelEditor(mp, q=1, av=1):
+                    cmds.modelEditor( mp, edit = True, wireframeOnShaded = True)
+
+            print "wire"
+
+        self.turn_group = turn_group
         
     
+    def _delete_turn_set(self):
+
+        
+        cmds.lookThru('persp')
+        cmds.setAttr("hardwareRenderingGlobals.ssaoEnable",False)
+        cmds.setAttr("hardwareRenderingGlobals.multiSampleEnable",False)
+
+        for mp in cmds.getPanel(type="modelPanel"):
+            if cmds.modelEditor(mp, q=1, av=1):
+                cmds.modelEditor( mp, edit = True, wireframeOnShaded = False)
+        
+        cmds.delete(self.turn_group)
+
     def _on_playblast(self):
         
+        if self.ui.turn_table_status.isChecked():
+            self._create_turntable()
+
         self._spinner.show()
 
         mov_path, mov_file = os.path.split(self._path)
@@ -178,6 +223,8 @@ class AppDialog(QtGui.QWidget):
         #                        note=note,
         #                        sframe=sframe,eframe=eframe)
 
+        if self.ui.turn_table_status.isChecked():
+            self._delete_turn_set()
         self._spinner.hide()
 
     def _set_frame(self):

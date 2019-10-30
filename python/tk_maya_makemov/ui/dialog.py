@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'dialog.ui'
 #
-# Created: Tue Oct 22 15:00:41 2019
+# Created: Wed Oct 30 15:47:37 2019
 #      by: pyside-uic 0.2.15 running on PySide 1.2.4
 #
 # WARNING! All changes made in this file will be lost!
@@ -12,10 +12,42 @@ from tank.platform.qt import QtCore, QtGui
 class Ui_Dialog(object):
     def setupUi(self, Dialog):
         Dialog.setObjectName("Dialog")
-        Dialog.resize(515, 365)
-        Dialog.setMaximumSize(QtCore.QSize(16777215, 400))
-        self.verticalLayout_10 = QtGui.QVBoxLayout(Dialog)
-        self.verticalLayout_10.setObjectName("verticalLayout_10")
+        Dialog.resize(579, 466)
+        Dialog.setMaximumSize(QtCore.QSize(16777215, 466))
+        self.verticalLayout_5 = QtGui.QVBoxLayout(Dialog)
+        self.verticalLayout_5.setObjectName("verticalLayout_5")
+        self.groupBox_2 = QtGui.QGroupBox(Dialog)
+        self.groupBox_2.setObjectName("groupBox_2")
+        self.verticalLayout_4 = QtGui.QVBoxLayout(self.groupBox_2)
+        self.verticalLayout_4.setSpacing(0)
+        self.verticalLayout_4.setSizeConstraint(QtGui.QLayout.SetNoConstraint)
+        self.verticalLayout_4.setContentsMargins(0, -1, 0, 0)
+        self.verticalLayout_4.setObjectName("verticalLayout_4")
+        self.horizontalLayout_8 = QtGui.QHBoxLayout()
+        self.horizontalLayout_8.setObjectName("horizontalLayout_8")
+        self.turn_table_status = QtGui.QCheckBox(self.groupBox_2)
+        self.turn_table_status.setObjectName("turn_table_status")
+        self.horizontalLayout_8.addWidget(self.turn_table_status)
+        spacerItem = QtGui.QSpacerItem(40, 20, QtGui.QSizePolicy.Expanding, QtGui.QSizePolicy.Minimum)
+        self.horizontalLayout_8.addItem(spacerItem)
+        self.create_turntable = QtGui.QPushButton(self.groupBox_2)
+        self.create_turntable.setObjectName("create_turntable")
+        self.horizontalLayout_8.addWidget(self.create_turntable)
+        self.verticalLayout_4.addLayout(self.horizontalLayout_8)
+        self.horizontalLayout_9 = QtGui.QHBoxLayout()
+        self.horizontalLayout_9.setObjectName("horizontalLayout_9")
+        self.turn_default = QtGui.QRadioButton(self.groupBox_2)
+        self.turn_default.setChecked(True)
+        self.turn_default.setObjectName("turn_default")
+        self.horizontalLayout_9.addWidget(self.turn_default)
+        self.turn_occlusion = QtGui.QRadioButton(self.groupBox_2)
+        self.turn_occlusion.setObjectName("turn_occlusion")
+        self.horizontalLayout_9.addWidget(self.turn_occlusion)
+        self.turn_wire = QtGui.QRadioButton(self.groupBox_2)
+        self.turn_wire.setObjectName("turn_wire")
+        self.horizontalLayout_9.addWidget(self.turn_wire)
+        self.verticalLayout_4.addLayout(self.horizontalLayout_9)
+        self.verticalLayout_5.addWidget(self.groupBox_2)
         self.horizontalLayout_5 = QtGui.QHBoxLayout()
         self.horizontalLayout_5.setObjectName("horizontalLayout_5")
         self.verticalLayout_6 = QtGui.QVBoxLayout()
@@ -85,7 +117,7 @@ class Ui_Dialog(object):
         self.horizontalLayout_7.addLayout(self.verticalLayout_9)
         self.verticalLayout_6.addWidget(self.groupBox_3)
         self.horizontalLayout_5.addLayout(self.verticalLayout_6)
-        self.verticalLayout_10.addLayout(self.horizontalLayout_5)
+        self.verticalLayout_5.addLayout(self.horizontalLayout_5)
         self.horizontalLayout_6 = QtGui.QHBoxLayout()
         self.horizontalLayout_6.setObjectName("horizontalLayout_6")
         self.verticalLayout_7 = QtGui.QVBoxLayout()
@@ -112,13 +144,20 @@ class Ui_Dialog(object):
         self.playblast = QtGui.QPushButton(Dialog)
         self.playblast.setObjectName("playblast")
         self.horizontalLayout_6.addWidget(self.playblast)
-        self.verticalLayout_10.addLayout(self.horizontalLayout_6)
+        self.verticalLayout_5.addLayout(self.horizontalLayout_6)
+        self.verticalLayout_5.setStretch(1, 1)
 
         self.retranslateUi(Dialog)
         QtCore.QMetaObject.connectSlotsByName(Dialog)
 
     def retranslateUi(self, Dialog):
         Dialog.setWindowTitle(QtGui.QApplication.translate("Dialog", "The Current Sgtk Environment", None, QtGui.QApplication.UnicodeUTF8))
+        self.groupBox_2.setTitle(QtGui.QApplication.translate("Dialog", "Turn Table", None, QtGui.QApplication.UnicodeUTF8))
+        self.turn_table_status.setText(QtGui.QApplication.translate("Dialog", "Enable", None, QtGui.QApplication.UnicodeUTF8))
+        self.create_turntable.setText(QtGui.QApplication.translate("Dialog", "CreateCamera", None, QtGui.QApplication.UnicodeUTF8))
+        self.turn_default.setText(QtGui.QApplication.translate("Dialog", "Default", None, QtGui.QApplication.UnicodeUTF8))
+        self.turn_occlusion.setText(QtGui.QApplication.translate("Dialog", "Occlusion", None, QtGui.QApplication.UnicodeUTF8))
+        self.turn_wire.setText(QtGui.QApplication.translate("Dialog", "Wireframe", None, QtGui.QApplication.UnicodeUTF8))
         self.groupBox.setTitle(QtGui.QApplication.translate("Dialog", "Resolution", None, QtGui.QApplication.UnicodeUTF8))
         self.select_radio.setText(QtGui.QApplication.translate("Dialog", "Select", None, QtGui.QApplication.UnicodeUTF8))
         self.custom_radio.setText(QtGui.QApplication.translate("Dialog", "Custom", None, QtGui.QApplication.UnicodeUTF8))
