@@ -84,7 +84,6 @@ class AppDialog(QtGui.QWidget):
         
         self._app = sgtk.platform.current_bundle()
         self._preview_task = None
-        print self._app.context.to_dict()     
 
         #init_ui
 

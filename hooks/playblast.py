@@ -74,7 +74,12 @@ class PlayBlast(HookClass):
 	v2 = [bBox[3], bBox[4], bBox[5]]
 	v3 = [v2[0]- v1[0], v2[1]-v1[1], v2[2]-v1[2]]
         height = (bBox[4] - bBox[1])/2.0
-	circle = cmds.circle(radius = bBox[3] * 0.8 * 9, sections = 50)
+        radius = bBox[3] * 0.8 * 9
+        if not platform.system() == "Linux":
+            radius = bBox[3] * 0.9 * 9
+        if radius < bBox[4]:
+            radius = bBox[4] * 2.4 
+	circle = cmds.circle(radius = radius, sections = 50)
 	cmds.setAttr(circle[0] + '.rotateX', 90)
         cmds.setAttr(circle[0] + '.translateY', height)
         cmds.setAttr(circle[0] + '.visibility', 0)
@@ -82,9 +87,11 @@ class PlayBlast(HookClass):
 
 	turnCamera = cmds.camera()
 	cameraShape = turnCamera[1]
+        focal_length = bBox
 	cmds.camera(cameraShape, edit = True, focalLength = 50)
 	cmds.camera(cameraShape, edit = True, fStop = 5.6)
-	cmds.setAttr(cameraShape + '.aiApertureSize', ((50.0/5.6)/2)/10)
+	#cmds.setAttr(cameraShape + '.aiApertureSize', ((50.0/5.6)/2)/10)
+	#cmds.setAttr(cameraShape + '.aiApertureSize', 20)
 
 	direction = 'Clockwise'
 	direction_value = 1
