@@ -77,8 +77,13 @@ class PlayBlast(HookClass):
         radius = bBox[3] * 0.8 * 9
         if not platform.system() == "Linux":
             radius = bBox[3] * 0.9 * 9
+
         if radius < bBox[4]:
             radius = bBox[4] * 2.4 
+
+        if radius < (bBox[5] *3):
+            radius = bBox[5] * 3 
+        print radius
 	circle = cmds.circle(radius = radius, sections = 50)
 	cmds.setAttr(circle[0] + '.rotateX', 90)
         cmds.setAttr(circle[0] + '.translateY', height)
