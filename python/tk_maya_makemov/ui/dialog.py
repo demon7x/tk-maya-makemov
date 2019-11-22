@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'dialog.ui'
 #
-# Created: Wed Oct 30 15:47:37 2019
+# Created: Fri Nov 22 18:15:48 2019
 #      by: pyside-uic 0.2.15 running on PySide 1.2.4
 #
 # WARNING! All changes made in this file will be lost!
@@ -25,9 +25,6 @@ class Ui_Dialog(object):
         self.verticalLayout_4.setObjectName("verticalLayout_4")
         self.horizontalLayout_8 = QtGui.QHBoxLayout()
         self.horizontalLayout_8.setObjectName("horizontalLayout_8")
-        self.turn_table_status = QtGui.QCheckBox(self.groupBox_2)
-        self.turn_table_status.setObjectName("turn_table_status")
-        self.horizontalLayout_8.addWidget(self.turn_table_status)
         spacerItem = QtGui.QSpacerItem(40, 20, QtGui.QSizePolicy.Expanding, QtGui.QSizePolicy.Minimum)
         self.horizontalLayout_8.addItem(spacerItem)
         self.create_turntable = QtGui.QPushButton(self.groupBox_2)
@@ -153,7 +150,6 @@ class Ui_Dialog(object):
     def retranslateUi(self, Dialog):
         Dialog.setWindowTitle(QtGui.QApplication.translate("Dialog", "The Current Sgtk Environment", None, QtGui.QApplication.UnicodeUTF8))
         self.groupBox_2.setTitle(QtGui.QApplication.translate("Dialog", "Turn Table", None, QtGui.QApplication.UnicodeUTF8))
-        self.turn_table_status.setText(QtGui.QApplication.translate("Dialog", "Enable", None, QtGui.QApplication.UnicodeUTF8))
         self.create_turntable.setText(QtGui.QApplication.translate("Dialog", "CreateCamera", None, QtGui.QApplication.UnicodeUTF8))
         self.turn_default.setText(QtGui.QApplication.translate("Dialog", "Default", None, QtGui.QApplication.UnicodeUTF8))
         self.turn_occlusion.setText(QtGui.QApplication.translate("Dialog", "Occlusion", None, QtGui.QApplication.UnicodeUTF8))

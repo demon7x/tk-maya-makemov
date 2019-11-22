@@ -74,16 +74,16 @@ class PlayBlast(HookClass):
 	v2 = [bBox[3], bBox[4], bBox[5]]
 	v3 = [v2[0]- v1[0], v2[1]-v1[1], v2[2]-v1[2]]
         height = (bBox[4] - bBox[1])/2.0
-        radius = bBox[3] * 0.8 * 9
+        radius = bBox[3] * 0.8 * 7
         if not platform.system() == "Linux":
-            radius = bBox[3] * 0.9 * 9
+            radius = bBox[3] * 0.9 * 8
 
-        if radius < bBox[4]:
-            radius = bBox[4] * 2.4 
+        #if radius < bBox[4]:
+        #    radius = bBox[4] * 2.4 
 
-        if radius < (bBox[5] *3):
-            radius = bBox[5] * 3 
-        print radius
+        #if radius < (bBox[5] *3):
+        #    radius = bBox[5] * 3 
+        #print radius
 	circle = cmds.circle(radius = radius, sections = 50)
 	cmds.setAttr(circle[0] + '.rotateX', 90)
         cmds.setAttr(circle[0] + '.translateY', height)
@@ -115,13 +115,24 @@ class PlayBlast(HookClass):
 	cmds.select(circle)
 	cmds.select(turnCamera, add = True)
 	turntableContainer = cmds.group()
-
+    
         cmds.lookThru(turnCamera)
-
+        self._create_slider_window(turnCamera,circle)
         
         return turntableContainer
         
-
+    def _create_slider_window(self,camera,circle):
+        window = cmds.window(title="Control TurnTable View",iconName="CTV",widthHeight=(250,100))
+        cmds.columnLayout( adjustableColumn=True )
+        cmds.text(label='Tilt', align='left')
+        cmds.floatSlider("tilt",min=-10.0,max=10.0,value=cmds.getAttr(camera[0]+".rotateX"))
+        cmds.connectControl( "tilt", "%s.rotateX"%camera[0] )
+        cmds.text(label='Zoom', align='left')
+        circle_size = cmds.getAttr(circle[1]+".radius")
+        cmds.floatSlider("zoom",min=circle_size/2 ,max=circle_size*2,value=cmds.getAttr(circle[1]+".radius"))
+        cmds.connectControl( "zoom", "%s.radius"%circle[1] )
+        cmds.setParent( '..' )
+        cmds.showWindow( window )
 
     
     def _create_mov(self,seq_path,mov_path,mov_file):

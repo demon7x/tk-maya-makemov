@@ -84,6 +84,7 @@ class AppDialog(QtGui.QWidget):
         
         self._app = sgtk.platform.current_bundle()
         self._preview_task = None
+        self.turn_table_status = False
 
         #init_ui
 
@@ -151,7 +152,7 @@ class AppDialog(QtGui.QWidget):
             print "wire"
 
         self.turn_group = turn_group
-        
+        self.turn_table_status = True       
     
     def _delete_turn_set(self):
 
@@ -168,8 +169,6 @@ class AppDialog(QtGui.QWidget):
 
     def _on_playblast(self):
         
-        if self.ui.turn_table_status.isChecked():
-            self._create_turntable()
 
         self._spinner.show()
 
@@ -222,7 +221,7 @@ class AppDialog(QtGui.QWidget):
         #                        note=note,
         #                        sframe=sframe,eframe=eframe)
 
-        if self.ui.turn_table_status.isChecked():
+        if self.turn_table_status:
             self._delete_turn_set()
         self._spinner.hide()
 
